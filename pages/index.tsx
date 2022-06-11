@@ -15,14 +15,14 @@ const HomePage: NextPageWithLayout = () => {
     <div className={styles.container}>
       <div className={styles["job-search-background"]}>
         <div className={styles["upper-blue-circle-background"]}>
-          <img src={upperCircleBGSrc} />
+          <img src={upperCircleBGSrc} alt="uppercircle" />
         </div>
         <div className={styles["bottom-blue-circle-background"]}>
-          <img src={bottomCircleBGSrc} />
+          <img src={bottomCircleBGSrc} alt="bottomcircle" />
         </div>
 
         <h1 className={styles["title"]}>Find Jobs in Singapore</h1>
-        <SearchBoxComponent/>
+        <SearchBoxComponent isLoading={false}/>
       </div>
     </div>
   );

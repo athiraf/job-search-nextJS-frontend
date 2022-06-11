@@ -4,9 +4,15 @@ import { Button, Form, FormGroup, Input } from "reactstrap";
 import styles from "../styles/search_box.module.css";
 import { addJobPageParam } from "../api/jobs_api";
 
-const SearchBoxComponent: FunctionComponent = () => {
-  let curSearch : string = '';
-  let curCompany : string = '';
+export interface SearchBoxInterface {
+  isLoading : boolean
+  prevSearch? : string,
+  prevCompany? : string,
+}
+
+const SearchBoxComponent: FunctionComponent<SearchBoxInterface> = ({isLoading,prevSearch,prevCompany} : SearchBoxInterface) => {
+  let curSearch : string = prevSearch??'';
+  let curCompany : string = prevCompany??'';
   let [search,setSearch] = useState(curSearch);
   let [company,setCompany] = useState(curCompany);
 
@@ -34,13 +40,22 @@ const SearchBoxComponent: FunctionComponent = () => {
             }}
           />
           <Link href={addJobPageParam('/jobs',company,search,1)}>
-            <Button className={styles["search-button"]} onSubmit={() => {}}>
+            <Button className={styles["search-button"]} onSubmit={() => {}} 
+              onClick={() => {
+                //@ts-ignore
+                window.location = addJobPageParam('/jobs',company,search,1)}}
+              disabled={!!isLoading}
+            >
               <i
-                className="fa fa-search"
+                className={!!isLoading?"fa fa-spinner fa-spin": "fa fa-search"}
                 color="white"
-                style={{ color: "white", paddingRight: "10px" }}
+                style={{ color: "white"}}
               />
-              Search
+              {!isLoading &&
+              <div style={{ paddingLeft: "5px" }}>
+               Search
+              </div>
+              }
             </Button>
           </Link>
         </FormGroup>

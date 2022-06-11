@@ -29,7 +29,7 @@ type NextPageWithLayoutJobs<JobsProps> = NextPage<JobsProps> & {
 
 const JobsListPage: NextPageWithLayoutJobs<JobsProps> = (data) => {
   let [jobs, setJobs] : [JobsInterface[],Dispatch<any>] = useState([]);
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [maxPage, setMaxPage] = useState(0);
   const curPage : number = data.page;
   useEffect(() => {
@@ -69,7 +69,7 @@ const JobsListPage: NextPageWithLayoutJobs<JobsProps> = (data) => {
           <div style={{ paddingBottom: "20px" }}>
             Search by employment type, category and more!
           </div>
-          <SearchBoxComponent />
+          <SearchBoxComponent prevCompany={data.company} prevSearch={data.search} isLoading={!!isLoading}/>
         </div>
 
         <CardGroup className={styles["card-group"]}>
